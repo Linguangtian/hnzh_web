@@ -1,0 +1,62 @@
+<view class="page">
+    <include src="/components/common/common"></include>
+    <include src="/components/header/header"></include>
+    <view class="body after-navber">
+        <navigator class="return-index-btn" openType="redirect" url="/pages/index/index" wx:if="{{show_index}}">
+            <image src="{{__wxapp_img.nav.index.url}}" style="width: 50rpx;height: 50rpx"></image>
+        </navigator>
+        <view class="flex-row tab-bar">
+           <!-- <view class="flex-grow-1">
+                <navigator class="{{status==0?'active':''}}" openType="redirect" url="/pages/order/order?status=0">
+                    <text>待付款</text>
+                </navigator>
+            </view>-->
+     <!--       style='background:#f6dae1;'-->
+            <swiper class="tab-right"  vertical="true" autoplay="true" circular="true" interval="2700" display-multiple-items='1'>
+                <view class="right-item">
+                    <block  wx:for="{{new_list}}" wx:for-item="item">
+                        <swiper-item>
+                            <view class='content-item'>
+                                <text class='name'>用户：{{item.nickname}}</text>
+                                <text class='wawa'>交易完成获得{{item.amount}}股</text>
+                            </view>
+                        </swiper-item>
+                    </block>
+
+                </view>
+            </swiper>
+
+
+
+        </view>
+        <view class="order-list">
+            <view class="no-data-tip" wx:if="{{show_no_data_tip}}">暂无相关订单</view>
+            <view class="order-item" wx:for="{{order_list}}" wx:for-item="order" wx:key="{{order.id}}">
+                <navigator >
+                    <view class="flex-row order-info">
+                        <view class="flex-grow-1">当前剩余消费股：{{order.current_amount}}股</view>
+                        <view class="flex-grow-0">{{order.create_time}}</view>
+                    </view>
+                    <view class="goods-list">
+                            <view class="flex-grow-1 flex-col">
+                                <view class="flex-grow-1 " style="height:75rpx; padding-top: 25rpx;">
+                                    <view class="goods-name" >明细：{{order.change_desc}}</view>
+                                </view>
+
+                                <view class="flex-grow-0 flex-row">
+                                    <view class="flex-grow-1 num" > </view>
+                                    <view class="flex-grow-0 price" style="color: #3fc24c" wx:if="{{order.type==1}}">+{{order.amount}} 股</view>
+                                    <view class="flex-grow-0 price" wx:else>-{{order.amount}} 股</view>
+                                </view>
+                            </view>
+
+                    </view>
+                </navigator>
+                <view class="flex-row">
+                </view>
+            </view>
+        </view>
+
+    </view>
+    <include src="/components/footer/footer"></include>
+</view>
